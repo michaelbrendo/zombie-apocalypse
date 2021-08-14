@@ -4,18 +4,16 @@ public class ControlaInimigo : MonoBehaviour
 {
     public GameObject Jogador;
     public float Velocidade = 5;
-    private Rigidbody rigidbodyInimigo;
-    private Animator animatorInimigo;
+    private MovimentoPersonagem movimentaInimigo;
+    private AnimacaoPersonagem animacaoInimigo;
 
 
     void Start()
     {
-        rigidbodyInimigo = GetComponent<Rigidbody>();
-        animatorInimigo = GetComponent<Animator>();
-
         Jogador = GameObject.FindWithTag("Jogador");
-        int geraTipoZumbi = Random.Range(1, 28);
-        transform.GetChild(geraTipoZumbi).gameObject.SetActive(true);
+        movimentaInimigo = GetComponent<MovimentoPersonagem>();
+        animacaoInimigo = GetComponent<AnimacaoPersonagem>();
+        AleatorizarZumbi();
     }
 
     void FixedUpdate()
@@ -24,20 +22,16 @@ public class ControlaInimigo : MonoBehaviour
 
         Vector3 direcao = Jogador.transform.position - transform.position;
 
-        Quaternion novaRotacao = Quaternion.LookRotation(direcao);
-        GetComponent<Rigidbody>().MoveRotation(novaRotacao);
-
+        movimentaInimigo.Rotacionar(direcao);
+        
         if (distancia > 2.5)
         {
-            rigidbodyInimigo.MovePosition
-                (rigidbodyInimigo.position +
-                direcao.normalized * Velocidade * Time.deltaTime);
-
-            animatorInimigo.SetBool("Atacando", false);
+            movimentaInimigo.Movimentar(direcao, Velocidade);
+            animacaoInimigo.atacar(false);
         }
         else
         {
-            animatorInimigo.SetBool("Atacando", true);
+            animacaoInimigo.atacar(true);
         }
     }
 
@@ -45,5 +39,10 @@ public class ControlaInimigo : MonoBehaviour
     {
         int dano = Random.Range(20, 30);
         Jogador.GetComponent<ControlaJogador>().TomarDano(dano);
+    }
+
+    void AleatorizarZumbi(){
+         int geraTipoZumbi = Random.Range(1, 28);
+        transform.GetChild(geraTipoZumbi).gameObject.SetActive(true);
     }
 }
