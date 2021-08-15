@@ -9,17 +9,17 @@ public class ControlaJogador : MonoBehaviour
     private Vector3 direcao;
     public LayerMask MascaraChao;
     public GameObject TextoGameOver;
-    private Rigidbody rigidbodyJogador;
-    private Animator animatorJogador;
     public int Vida = 100;
     public ControlaInterface scriptControlaInterface;
     public AudioClip SomDeDano;
+    private MovimentoJogador meuMovimentoJogador;
+    private AnimacaoPersonagem AnimacaoJogador;
 
     private void Start()
     {
         Time.timeScale = 1;
-        rigidbodyJogador = GetComponent<Rigidbody>();
-        animatorJogador = GetComponent<Animator>();
+        AnimacaoJogador = GetComponent<AnimacaoPersonagem>();
+        meuMovimentoJogador = GetComponent<MovimentoJogador>();
     }
 
     // Update is called once per frame
@@ -30,15 +30,8 @@ public class ControlaJogador : MonoBehaviour
 
         direcao = new Vector3(eixoX, 0, eixoZ);
                 
-        if(direcao != Vector3.zero)
-        {
-            animatorJogador.SetBool("Movendo", true);
-        }
-        else
-        {
-            animatorJogador.SetBool("Movendo", false);
-        }
-
+        AnimacaoJogador.Movimentar(direcao.magnitude);
+        
         if(Vida <= 0)
         {
             if (Input.GetButtonDown("Fire1"))
@@ -50,26 +43,9 @@ public class ControlaJogador : MonoBehaviour
 
     void FixedUpdate()
     {
-        rigidbodyJogador.MovePosition //Pega o Rigidbody 
-            (rigidbodyJogador.position + //Na posição atual do rigidbody
-            (direcao * Velocidade * Time.deltaTime)); // Na direção que desejo ir
+        meuMovimentoJogador.Movimentar(direcao, Velocidade);
+        meuMovimentoJogador.RotacaoJogador(MascaraChao);
 
-        Ray raio = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        Debug.DrawRay(raio.origin, raio.direction * 100, Color.red);
-
-        RaycastHit impacto;
-
-        if(Physics.Raycast(raio, out impacto, 100, MascaraChao))
-        {
-            Vector3 posicaoMiraJogador = impacto.point - transform.position;
-
-            posicaoMiraJogador.y = transform.position.y;
-
-            Quaternion novaRotacao = Quaternion.LookRotation(posicaoMiraJogador);
-
-           rigidbodyJogador.MoveRotation(novaRotacao);
-        }
     }
     public void TomarDano(int dano)
     {
