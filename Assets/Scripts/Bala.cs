@@ -20,17 +20,14 @@ public class Bala : MonoBehaviour
             (rigidbodyBala.position + 
             transform.forward * Velocidade * Time.deltaTime);        
     }
-
     void OnTriggerEnter(Collider objetoDeColisao)
     {
-
         if(objetoDeColisao.tag == "Enemy")
         {
-            Destroy(objetoDeColisao.gameObject);
-            ControlaAudio.instancia.PlayOneShot(SomDeMorte);
+            objetoDeColisao.GetComponent<ControlaInimigo>().TomarDano(1);
         }
 
-        Destroy(gameObject);
+        Destroy(gameObject);        
         
     }
 }
