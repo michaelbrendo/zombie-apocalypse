@@ -36,4 +36,7 @@ sysinfo.txt
 *.apk
 *.unitypackage
 Logs/
+<<<<<<< HEAD
 .log
+=======
+>>>>>>> feat/unity-study-plan
