@@ -6,6 +6,7 @@ public class Status : MonoBehaviour
     //[HideInInspector]
     public int Vida;
     public float Velocidade = 5;
+    public float tempoEntrePosicoesAleatorias = 4;
 
     void Awake(){
         
