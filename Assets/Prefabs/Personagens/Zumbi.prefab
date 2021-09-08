@@ -664,6 +664,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Jogador: {fileID: 0}
   SomDeMorte: {fileID: 8300000, guid: 191f2d4af23e976439b92f87f367aba7, type: 3}
+  KitMedicoPrefab: {fileID: 1060151288946202, guid: 6150c6f66b7034ec5b3672478195682a, type: 3}
 --- !u!114 &4225397942212992379
 MonoBehaviour:
   m_ObjectHideFlags: 0
