@@ -11,6 +11,9 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
     private Vector3 direcao;
     private float contadorVagar;
     private int distanceSphere = 10;
+    private float porcentagemGerarKitMedico = 0.1f;
+    public GameObject KitMedicoPrefab;
+
 
 
     void Start()
@@ -94,6 +97,16 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
     public void Morrer()
     {
         Destroy(gameObject);
-        ControlaAudio.instancia.PlayOneShot(SomDeMorte);        
+        ControlaAudio.instancia.PlayOneShot(SomDeMorte);   
+        VerificarGeracaoDoKitMedico(porcentagemGerarKitMedico);
+
+    }
+
+    void VerificarGeracaoDoKitMedico(float porcentagemGeracao)
+    {
+        if(Random.value <= porcentagemGeracao){
+            Instantiate(KitMedicoPrefab, transform.position, Quaternion.identity);
+        }
+
     }
 }

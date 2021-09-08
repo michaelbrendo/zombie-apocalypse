@@ -1,12 +1,9 @@
 fileFormatVersion: 2
-guid: b7a71e366c18eb444a498ffbb3c1d762
+guid: 67b04a9c3143de7478fdc53e643e3f98
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - Jogador: {instanceID: 0}
-  - SomDeMorte: {instanceID: 0}
-  - KitMedicoPrefab: {instanceID: 0}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
