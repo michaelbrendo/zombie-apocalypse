@@ -12,15 +12,26 @@ public class GeradorDeZumbis : MonoBehaviour
     private float distaciaDeGeracao = 3;
     private float distaciaDoJogadorParaGeracao = 20;
     private GameObject Jogador;
+    private int quantidadeDeZumbis;
+    private int quantidademaximaDeZumbis = 2;
+    private float proximoAumentoDeDificuldade = 30;
+    private float contadorDeAumentardificuldade;
 
     private void Start(){
         Jogador = GameObject.FindWithTag("Jogador");
+        contadorDeAumentardificuldade = proximoAumentoDeDificuldade;
+        for(int i = 0; i < quantidademaximaDeZumbis; i++)
+        {
+             StartCoroutine(GerarNovoZumbi());
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Vector3.Distance(transform.position, Jogador.transform.position) > distaciaDoJogadorParaGeracao)
+        bool possoGerarZumbisPelaDistancia = Vector3.Distance(transform.position, Jogador.transform.position) > distaciaDoJogadorParaGeracao;
+        
+        if(possoGerarZumbisPelaDistancia == true && quantidadeDeZumbis < quantidademaximaDeZumbis)
         {
             contadorTempo += Time.deltaTime;
 
@@ -29,6 +40,12 @@ public class GeradorDeZumbis : MonoBehaviour
                 StartCoroutine(GerarNovoZumbi());
                 contadorTempo = 0;
             }
+        }
+
+        if(Time.timeSinceLevelLoad > contadorDeAumentardificuldade)
+        {
+            quantidadeDeZumbis++;
+            contadorDeAumentardificuldade = Time.timeSinceLevelLoad + proximoAumentoDeDificuldade; 
         }
     }
 
@@ -46,7 +63,9 @@ public class GeradorDeZumbis : MonoBehaviour
             colisores = Physics.OverlapSphere(posicaoDeCriacao, 1, LayerZumbi);
             yield return null;
         }
-        Instantiate(Zumbi, posicaoDeCriacao, transform.rotation);
+        ControlaInimigo zumbi =  Instantiate(Zumbi, posicaoDeCriacao, transform.rotation).GetComponent<ControlaInimigo>();
+        zumbi.MeuGerador = this;
+        quantidadeDeZumbis++;
     }
 
     Vector3 AleatorizarPosicao(){
@@ -56,5 +75,10 @@ public class GeradorDeZumbis : MonoBehaviour
         posicao.y = 0;
 
         return posicao;
+    }
+
+    public void DiminuirQuantidadeDeZumbis()
+    {
+        quantidadeDeZumbis--;
     }
 }

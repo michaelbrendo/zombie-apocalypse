@@ -14,6 +14,7 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
     private float porcentagemGerarKitMedico = 0.1f;
     public GameObject KitMedicoPrefab;
     private ControlaInterface scriptControlaInterface;
+    public GeradorDeZumbis MeuGerador;
     void Start()
     {
         Jogador = GameObject.FindWithTag("Jogador");
@@ -99,6 +100,7 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
         ControlaAudio.instancia.PlayOneShot(SomDeMorte);   
         VerificarGeracaoDoKitMedico(porcentagemGerarKitMedico);
         scriptControlaInterface.AtualizarQuantidadeDeZumbisMortos();
+        MeuGerador.DiminuirQuantidadeDeZumbis();
     }
 
     void VerificarGeracaoDoKitMedico(float porcentagemGeracao)
