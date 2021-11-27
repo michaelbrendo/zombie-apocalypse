@@ -6,6 +6,8 @@ public class MovimentoPersonagem : MonoBehaviour
 {
     private Rigidbody meuRigidbody;
 
+    private float waitBodyDisappear = 4;
+    
     void Awake(){
         meuRigidbody = GetComponent<Rigidbody>();
     }
@@ -21,5 +23,19 @@ public class MovimentoPersonagem : MonoBehaviour
         Quaternion novaRotacao = Quaternion.LookRotation(direcao);
         meuRigidbody.MoveRotation(novaRotacao);
     }
+
+    public void Morrer(){            
+        StartCoroutine(waiter());
+    }
+
+IEnumerator waiter()
+{
+    yield return new WaitForSeconds(waitBodyDisappear);
+    meuRigidbody.constraints = RigidbodyConstraints.None;
+    meuRigidbody.velocity = Vector3.zero;
+    GetComponent<Collider>().enabled = false;
+}
+
+
 
 }

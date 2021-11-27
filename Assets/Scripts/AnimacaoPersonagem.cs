@@ -16,4 +16,9 @@ public class AnimacaoPersonagem : MonoBehaviour
     {          
           meuAnimator.SetFloat("Movendo", ValorDeMovimento);
     }
+
+    public void Morrer(){
+        
+        meuAnimator.SetTrigger("Morrer");
+    }
 }

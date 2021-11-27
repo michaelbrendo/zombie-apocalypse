@@ -15,6 +15,8 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
     public GameObject KitMedicoPrefab;
     private ControlaInterface scriptControlaInterface;
     public GeradorDeZumbis MeuGerador;
+    private float waitBodyDisappearToDestroy = 10;
+
     void Start()
     {
         Jogador = GameObject.FindWithTag("Jogador");
@@ -96,7 +98,10 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
 
     public void Morrer()
     {
-        Destroy(gameObject);
+        Destroy(gameObject, waitBodyDisappearToDestroy);
+        animacaoInimigo.Morrer();
+        this.enabled = false;
+        movimentaInimigo.Morrer();
         ControlaAudio.instancia.PlayOneShot(SomDeMorte);   
         VerificarGeracaoDoKitMedico(porcentagemGerarKitMedico);
         scriptControlaInterface.AtualizarQuantidadeDeZumbisMortos();

@@ -11498,6 +11498,10 @@ PrefabInstance:
       propertyPath: CanoDaArma
       value: 
       objectReference: {fileID: 1759399566}
+    - target: {fileID: 5307789847383130483, guid: 4b3bb44effa49480d8d18049684cc33a, type: 3}
+      propertyPath: waitBodyDisappear
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b3bb44effa49480d8d18049684cc33a, type: 3}
 --- !u!1001 &437616627
