@@ -1,8 +1,6 @@
 # **apocalipse-zumbi**
  
-Play: https://michaelbrendo.itch.io/apocalipse-zumbiaw
-
-https://itch.io/
+Play: https://michaelbrendo.itch.io/apocalipse-zumbi
 
 ## Tecnologias
 - [Unity](ahttps://unity.com/)
