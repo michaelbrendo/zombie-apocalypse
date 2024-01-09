@@ -1,4 +1,4 @@
-# **apocalipse-zumbi**
+# **Zombie apocalypse**
  
 Play: https://michaelbrendo.itch.io/apocalipse-zumbi
 
